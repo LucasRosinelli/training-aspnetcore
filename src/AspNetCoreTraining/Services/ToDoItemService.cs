@@ -40,5 +40,22 @@ namespace AspNetCoreTraining.Services
             var saveResult = await this._context.SaveChangesAsync();
             return saveResult == 1;
         }
+
+        public async Task<bool> MarkDoneAsync(Guid id)
+        {
+            var toDoItem = await this._context.Items
+                .Where(i => i.Id == id)
+                .SingleOrDefaultAsync();
+
+            if (toDoItem == null)
+            {
+                return false;
+            }
+
+            toDoItem.IsDone = true;
+
+            var saveResult = await this._context.SaveChangesAsync();
+            return saveResult == 1;
+        }
     }
 }

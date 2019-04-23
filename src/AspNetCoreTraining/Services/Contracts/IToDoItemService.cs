@@ -1,5 +1,6 @@
 ﻿using AspNetCoreTraining.Models.Database;
 using AspNetCoreTraining.Models.Dto;
+using System;
 using System.Threading.Tasks;
 
 namespace AspNetCoreTraining.Services.Contracts
@@ -8,5 +9,6 @@ namespace AspNetCoreTraining.Services.Contracts
     {
         Task<ToDoItem[]> GetIncompleteItemsAsync();
         Task<bool> AddItemAsync(AddToDoItem newItem);
+        Task<bool> MarkDoneAsync(Guid id);
     }
 }

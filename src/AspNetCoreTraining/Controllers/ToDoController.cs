@@ -2,6 +2,7 @@
 using AspNetCoreTraining.Models.ViewModel;
 using AspNetCoreTraining.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace AspNetCoreTraining.Controllers
@@ -39,6 +40,23 @@ namespace AspNetCoreTraining.Controllers
             if (!successful)
             {
                 return this.BadRequest(new { error = "Could not add item." });
+            }
+
+            return this.RedirectToAction("Index");
+        }
+
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MarkDone(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return this.RedirectToAction("Index");
+            }
+
+            var successful = await this._toDoItemService.MarkDoneAsync(id);
+            if (!successful)
+            {
+                return this.BadRequest(new { error = "Could not mark item as done." });
             }
 
             return this.RedirectToAction("Index");
