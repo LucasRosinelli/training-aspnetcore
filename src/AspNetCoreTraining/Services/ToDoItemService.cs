@@ -1,7 +1,9 @@
 ﻿using AspNetCoreTraining.Data;
 using AspNetCoreTraining.Models.Database;
+using AspNetCoreTraining.Models.Dto;
 using AspNetCoreTraining.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,6 +23,22 @@ namespace AspNetCoreTraining.Services
             return await this._context.Items
                 .Where(i => i.IsDone == false)
                 .ToArrayAsync();
+        }
+
+        public async Task<bool> AddItemAsync(AddToDoItem newItem)
+        {
+            var toDoItem = new ToDoItem()
+            {
+                Id = Guid.NewGuid(),
+                Title = newItem.Title,
+                IsDone = false,
+                DueAt = DateTimeOffset.Now.AddDays(3)
+            };
+
+            this._context.Items.Add(toDoItem);
+
+            var saveResult = await this._context.SaveChangesAsync();
+            return saveResult == 1;
         }
     }
 }

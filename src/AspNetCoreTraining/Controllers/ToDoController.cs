@@ -1,4 +1,5 @@
-﻿using AspNetCoreTraining.Models.ViewModel;
+﻿using AspNetCoreTraining.Models.Dto;
+using AspNetCoreTraining.Models.ViewModel;
 using AspNetCoreTraining.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -23,7 +24,25 @@ namespace AspNetCoreTraining.Controllers
                 Items = items
             };
 
-            return View(model);
+            return this.View(model);
+        }
+
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddItem(AddToDoItem newItem)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.RedirectToAction("Index");
+            }
+
+            var successful = await this._toDoItemService.AddItemAsync(newItem);
+            if (!successful)
+            {
+                return this.BadRequest("Could not add item.");
+                // OR: return this.BadRequest(new { error = "Could not add item." });
+            }
+
+            return this.RedirectToAction("Index");
         }
     }
 }

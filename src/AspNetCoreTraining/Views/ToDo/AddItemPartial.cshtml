@@ -1,0 +1,8 @@
+﻿@model AddToDoItem
+@using AspNetCoreTraining.Models.Dto
+
+<form asp-action="AddItem" method="post">
+    <label asp-for="Title">Add a new item:</label>
+    <input type="text" name="Title" value="" />
+    <button type="submit">Add</button>
+</form>

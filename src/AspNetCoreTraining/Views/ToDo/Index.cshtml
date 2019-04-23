@@ -1,7 +1,9 @@
-﻿@model  AspNetCoreTraining.Models.ViewModel.ToDoViewModel
+﻿@model ToDoViewModel
+@using AspNetCoreTraining.Models.Dto
+@using AspNetCoreTraining.Models.ViewModel
 @using Humanizer
 
-@{ 
+@{
     this.ViewBag.Title = "Manage your To-Do List";
 }
 
@@ -25,6 +27,6 @@
         }
     </table>
     <div class="panel-footer add-item-form">
-        <!-- TODO: add item form -->
+        @await Html.PartialAsync("AddItemPartial", new AddToDoItem())
     </div>
 </div>
