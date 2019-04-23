@@ -38,8 +38,7 @@ namespace AspNetCoreTraining.Controllers
             var successful = await this._toDoItemService.AddItemAsync(newItem);
             if (!successful)
             {
-                return this.BadRequest("Could not add item.");
-                // OR: return this.BadRequest(new { error = "Could not add item." });
+                return this.BadRequest(new { error = "Could not add item." });
             }
 
             return this.RedirectToAction("Index");
