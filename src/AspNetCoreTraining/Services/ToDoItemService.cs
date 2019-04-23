@@ -32,7 +32,7 @@ namespace AspNetCoreTraining.Services
                 Id = Guid.NewGuid(),
                 Title = newItem.Title,
                 IsDone = false,
-                DueAt = DateTimeOffset.Now.AddDays(3)
+                DueAt = newItem.DueAt
             };
 
             this._context.Items.Add(toDoItem);

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AspNetCoreTraining.Models.Dto
 {
@@ -6,5 +7,6 @@ namespace AspNetCoreTraining.Models.Dto
     {
         [Required]
         public string Title { get; set; }
+        public DateTimeOffset DueAt { get; set; }
     }
 }

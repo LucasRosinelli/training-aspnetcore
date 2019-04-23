@@ -4,5 +4,7 @@
 <form asp-action="AddItem" method="post">
     <label asp-for="Title">Add a new item:</label>
     <input type="text" name="Title" value="" />
+    <label asp-for="DueAt">Due at:</label>
+    <input type="datetime-local" name="DueAt" value="" />
     <button type="submit">Add</button>
 </form>
