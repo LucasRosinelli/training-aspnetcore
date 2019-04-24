@@ -26,11 +26,12 @@ namespace AspNetCoreTraining.Services
                 .ToArrayAsync();
         }
 
-        public async Task<bool> AddItemAsync(AddToDoItem newItem)
+        public async Task<bool> AddItemAsync(AddToDoItem newItem, IdentityUser user)
         {
             var toDoItem = new ToDoItem()
             {
                 Id = Guid.NewGuid(),
+                UserId = user.Id,
                 Title = newItem.Title,
                 IsDone = false,
                 DueAt = newItem.DueAt
@@ -42,10 +43,10 @@ namespace AspNetCoreTraining.Services
             return saveResult == 1;
         }
 
-        public async Task<bool> MarkDoneAsync(Guid id)
+        public async Task<bool> MarkDoneAsync(Guid id, IdentityUser user)
         {
             var toDoItem = await this._context.Items
-                .Where(i => i.Id == id)
+                .Where(i => i.Id == id && i.UserId == user.Id)
                 .SingleOrDefaultAsync();
 
             if (toDoItem == null)

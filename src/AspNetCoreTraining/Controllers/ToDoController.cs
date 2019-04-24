@@ -47,7 +47,13 @@ namespace AspNetCoreTraining.Controllers
                 return this.RedirectToAction("Index");
             }
 
-            var successful = await this._toDoItemService.AddItemAsync(newItem);
+            var user = await this._userManager.GetUserAsync(this.User);
+            if (user == null)
+            {
+                return this.Challenge();
+            }
+
+            var successful = await this._toDoItemService.AddItemAsync(newItem, user);
             if (!successful)
             {
                 return this.BadRequest(new { error = "Could not add item." });
@@ -64,7 +70,13 @@ namespace AspNetCoreTraining.Controllers
                 return this.RedirectToAction("Index");
             }
 
-            var successful = await this._toDoItemService.MarkDoneAsync(id);
+            var user = await this._userManager.GetUserAsync(this.User);
+            if (user == null)
+            {
+                return this.Challenge();
+            }
+
+            var successful = await this._toDoItemService.MarkDoneAsync(id, user);
             if (!successful)
             {
                 return this.BadRequest(new { error = "Could not mark item as done." });

@@ -9,7 +9,7 @@ namespace AspNetCoreTraining.Services.Contracts
     public interface IToDoItemService
     {
         Task<ToDoItem[]> GetIncompleteItemsAsync(IdentityUser user);
-        Task<bool> AddItemAsync(AddToDoItem newItem);
-        Task<bool> MarkDoneAsync(Guid id);
+        Task<bool> AddItemAsync(AddToDoItem newItem, IdentityUser user);
+        Task<bool> MarkDoneAsync(Guid id, IdentityUser user);
     }
 }
