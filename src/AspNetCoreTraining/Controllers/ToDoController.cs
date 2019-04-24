@@ -1,12 +1,14 @@
 ﻿using AspNetCoreTraining.Models.Dto;
 using AspNetCoreTraining.Models.ViewModel;
 using AspNetCoreTraining.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
 namespace AspNetCoreTraining.Controllers
 {
+    [Authorize]
     public class ToDoController : Controller
     {
         private readonly IToDoItemService _toDoItemService;
