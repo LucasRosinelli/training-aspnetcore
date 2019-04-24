@@ -22,7 +22,7 @@ namespace AspNetCoreTraining.Services
         public async Task<ToDoItem[]> GetIncompleteItemsAsync(IdentityUser user)
         {
             return await this._context.Items
-                .Where(i => i.IsDone == false)
+                .Where(i => i.IsDone == false && i.UserId == user.Id)
                 .ToArrayAsync();
         }
 
