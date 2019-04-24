@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreTraining", "src\AspNetCoreTraining\AspNetCoreTraining.csproj", "{2B70AC94-4C4A-45D0-8CF8-724386ED3994}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FEDC282A-70E4-4501-BC65-00361381469D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{757B6189-5CEB-4833-9A7F-6E8CE19E8D3D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreTraining.UnitTests", "test\AspNetCoreTraining.UnitTests\AspNetCoreTraining.UnitTests.csproj", "{119053AE-D92C-4438-823B-3EF4AF29A4F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +21,17 @@ Global
 		{2B70AC94-4C4A-45D0-8CF8-724386ED3994}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B70AC94-4C4A-45D0-8CF8-724386ED3994}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B70AC94-4C4A-45D0-8CF8-724386ED3994}.Release|Any CPU.Build.0 = Release|Any CPU
+		{119053AE-D92C-4438-823B-3EF4AF29A4F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{119053AE-D92C-4438-823B-3EF4AF29A4F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{119053AE-D92C-4438-823B-3EF4AF29A4F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{119053AE-D92C-4438-823B-3EF4AF29A4F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2B70AC94-4C4A-45D0-8CF8-724386ED3994} = {FEDC282A-70E4-4501-BC65-00361381469D}
+		{119053AE-D92C-4438-823B-3EF4AF29A4F0} = {757B6189-5CEB-4833-9A7F-6E8CE19E8D3D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1BB845E-C7F2-4191-B53A-B95EEE5D2EA7}
