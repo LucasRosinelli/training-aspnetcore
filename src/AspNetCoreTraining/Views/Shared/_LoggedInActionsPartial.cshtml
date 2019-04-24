@@ -7,13 +7,11 @@
 {
     var currentUser = await this.userManager.GetUserAsync(this.User);
 
-    var isAdmin = currentUser != null && await this.userManager.IsInRoleAsync(currentUser, Constants.AdministratorRole);
-
-    if (isAdmin)
+    if (currentUser != null)
     {
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="ManageUsers" asp-action="Index">Manage users</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="ToDo" asp-action="Index">My To-Do's</a>
             </li>
         </ul>
     }
