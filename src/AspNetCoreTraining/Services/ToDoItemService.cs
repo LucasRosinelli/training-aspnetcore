@@ -2,6 +2,7 @@
 using AspNetCoreTraining.Models.Database;
 using AspNetCoreTraining.Models.Dto;
 using AspNetCoreTraining.Services.Contracts;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace AspNetCoreTraining.Services
             this._context = context;
         }
 
-        public async Task<ToDoItem[]> GetIncompleteItemsAsync()
+        public async Task<ToDoItem[]> GetIncompleteItemsAsync(IdentityUser user)
         {
             return await this._context.Items
                 .Where(i => i.IsDone == false)

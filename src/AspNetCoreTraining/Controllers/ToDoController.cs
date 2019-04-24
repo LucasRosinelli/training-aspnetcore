@@ -2,6 +2,7 @@
 using AspNetCoreTraining.Models.ViewModel;
 using AspNetCoreTraining.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -12,15 +13,23 @@ namespace AspNetCoreTraining.Controllers
     public class ToDoController : Controller
     {
         private readonly IToDoItemService _toDoItemService;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ToDoController(IToDoItemService toDoItemService)
+        public ToDoController(IToDoItemService toDoItemService, UserManager<IdentityUser> userManager)
         {
             this._toDoItemService = toDoItemService;
+            this._userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
         {
-            var items = await this._toDoItemService.GetIncompleteItemsAsync();
+            var user = await this._userManager.GetUserAsync(this.User);
+            if (user == null)
+            {
+                return this.Challenge();
+            }
+
+            var items = await this._toDoItemService.GetIncompleteItemsAsync(user);
 
             var model = new ToDoViewModel()
             {
