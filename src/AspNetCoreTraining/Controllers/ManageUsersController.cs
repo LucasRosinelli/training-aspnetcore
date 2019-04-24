@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreTraining.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = Constants.AdministratorRole)]
     public class ManageUsersController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -20,7 +20,7 @@ namespace AspNetCoreTraining.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var administrators = (await this._userManager.GetUsersInRoleAsync("Administrator")).ToArray();
+            var administrators = (await this._userManager.GetUsersInRoleAsync(Constants.AdministratorRole)).ToArray();
             var everyone = await this._userManager.Users.ToArrayAsync();
 
             var model = new ManagerUsersViewModel()
