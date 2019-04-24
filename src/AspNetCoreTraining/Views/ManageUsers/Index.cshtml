@@ -1,0 +1,44 @@
+﻿@model ManagerUsersViewModel
+@using AspNetCoreTraining.Models.ViewModel
+
+@{
+    this.ViewData["Title"] = "Index";
+}
+
+<h2>@this.ViewData["Title"]</h2>
+
+<h3>Administrators</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Email</td>
+        </tr>
+    </thead>
+    @foreach (var user in this.Model.Administrators)
+    {
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.Email</td>
+        </tr>
+    }
+</table>
+
+<h3>Everyone</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Email</td>
+        </tr>
+    </thead>
+    @foreach (var user in this.Model.Everyone)
+    {
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.Email</td>
+        </tr>
+    }
+</table>
