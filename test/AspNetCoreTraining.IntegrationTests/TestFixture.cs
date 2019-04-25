@@ -19,8 +19,9 @@ namespace AspNetCoreTraining.IntegrationTests
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration((context, config) =>
                 {
-                    config.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(),
-                        "..\\..\\..\\..\\..\\AspNetCoreTraining"));
+                    var path = Path.Combine(Directory.GetCurrentDirectory(),
+                        "..\\..\\..\\..\\..\\src\\AspNetCoreTraining");
+                    config.SetBasePath(path);
 
                     config.AddJsonFile("appsettings.json");
                 });
@@ -28,7 +29,7 @@ namespace AspNetCoreTraining.IntegrationTests
             this._server = new TestServer(builder);
 
             this.Client = this._server.CreateClient();
-            this.Client.BaseAddress = new Uri("http://localhost:8888");
+            this.Client.BaseAddress = new Uri("http://localhost:8888/");
         }
 
         public void Dispose()
