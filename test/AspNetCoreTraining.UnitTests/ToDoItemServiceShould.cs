@@ -57,12 +57,12 @@ namespace AspNetCoreTraining.UnitTests
 
                 var fakeUser1 = new IdentityUser()
                 {
-                    Id = "fake-001",
-                    UserName = "fake1@training.local"
+                    Id = "fake-001b",
+                    UserName = "fake1b@training.local"
                 };
                 await service.AddItemAsync(new AddToDoItem()
                 {
-                    Title = "Fake 1 - Item 1 (completed)"
+                    Title = "Fake 1 - Item 1 (done)"
                 }, fakeUser1);
                 await service.AddItemAsync(new AddToDoItem()
                 {
@@ -77,8 +77,8 @@ namespace AspNetCoreTraining.UnitTests
 
                 var fakeUser2 = new IdentityUser()
                 {
-                    Id = "fake-002",
-                    UserName = "fake2@training.local"
+                    Id = "fake-002b",
+                    UserName = "fake2b@training.local"
                 };
                 await service.AddItemAsync(new AddToDoItem()
                 {
@@ -86,11 +86,11 @@ namespace AspNetCoreTraining.UnitTests
                 }, fakeUser2);
                 await service.AddItemAsync(new AddToDoItem()
                 {
-                    Title = "Fake 2 - Item 2 (completed)"
+                    Title = "Fake 2 - Item 2 (done)"
                 }, fakeUser2);
                 await service.AddItemAsync(new AddToDoItem()
                 {
-                    Title = "Fake 2 - Item 3"
+                    Title = "Fake 2 - Item 3 (done)"
                 }, fakeUser2);
                 await service.AddItemAsync(new AddToDoItem()
                 {
@@ -98,6 +98,7 @@ namespace AspNetCoreTraining.UnitTests
                 }, fakeUser2);
                 var fake2Items = await service.GetIncompleteItemsAsync(fakeUser2);
                 await service.MarkDoneAsync(fake2Items[1].Id, fakeUser2);
+                await service.MarkDoneAsync(fake2Items[2].Id, fakeUser2);
             }
 
             using (var context = new ApplicationDbContext(options))
@@ -106,27 +107,33 @@ namespace AspNetCoreTraining.UnitTests
 
                 var fakeUser1 = new IdentityUser()
                 {
-                    Id = "fake-001",
-                    UserName = "fake1@training.local"
+                    Id = "fake-001b",
+                    UserName = "fake1b@training.local"
                 };
-                var fake1Items = await service.GetIncompleteItemsAsync(fakeUser1);
-                Assert.Equal(2, fake1Items.Length);
+                var fake1ItemsActual = await service.GetIncompleteItemsAsync(fakeUser1);
+                var fake1ItemsExpected = await context.Items.
+                    Where(i => i.IsDone == false && i.UserId == fakeUser1.Id).ToArrayAsync();
+                Assert.Equal(fake1ItemsExpected.Length, fake1ItemsActual.Length);
 
                 var fakeUser2 = new IdentityUser()
                 {
-                    Id = "fake-002",
-                    UserName = "fake2@training.local"
+                    Id = "fake-002b",
+                    UserName = "fake2b@training.local"
                 };
-                var fake2Items = await service.GetIncompleteItemsAsync(fakeUser2);
-                Assert.Equal(3, fake2Items.Length);
+                var fake2ItemsActual = await service.GetIncompleteItemsAsync(fakeUser2);
+                var fake2ItemsExpected = await context.Items.
+                    Where(i => i.IsDone == false && i.UserId == fakeUser2.Id).ToArrayAsync();
+                Assert.Equal(fake2ItemsExpected.Length, fake2ItemsActual.Length);
 
                 var fakeUser3 = new IdentityUser()
                 {
-                    Id = "fake-003",
-                    UserName = "fake3@training.local"
+                    Id = "fake-003b",
+                    UserName = "fake3b@training.local"
                 };
-                var fake3Items = await service.GetIncompleteItemsAsync(fakeUser3);
-                Assert.Empty(fake3Items);
+                var fake3ItemsActual = await service.GetIncompleteItemsAsync(fakeUser3);
+                var fake3ItemsExpected = await context.Items.
+                    Where(i => i.IsDone == false && i.UserId == fakeUser3.Id).ToArrayAsync();
+                Assert.Equal(fake3ItemsExpected.Length, fake3ItemsActual.Length);
             }
         }
 
